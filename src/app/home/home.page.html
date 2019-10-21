@@ -1,0 +1,45 @@
+<ion-content (click)="run()">
+    <ion-grid 
+        (pinchout)="increaseFontSize()"
+        (pinchin)="decreaseFontSize()"
+        (panleft)="goBack()"
+        (panright)="goForward( $event )">
+        
+        <ion-label style="display: block;">{{ currentProgress }}</ion-label>
+        <select (change)="changeSpeed($event.target.value)"
+           [(ngModel)]="selected"
+           (click)="onEvent($event)">
+            <option value=200>200wpm</option>
+            <option value=300>300wpm</option>
+            <option value=350>350wpm</option>
+            <option value=400>400wpm</option>
+            <option value=450>450wpm</option>
+            <option value=500>500wpm</option>
+            <option value=550>550wpm</option>
+            <option value=600>600wpm</option>
+            <option value=650>650wpm</option>
+            <option value=700>700wpm</option>
+            <option value=750>750wpm</option>
+            <option value=800>800wpm</option>
+            <option value=850>850wpm</option>
+            <option value=900>900wpm</option>
+            <option value=950>950wpm</option>
+          </select>       
+  
+            <div class="singleWord" [style.fontSize]="fontSize">
+                <ion-label  class="divider">|</ion-label>
+                <ion-row>
+                    <ion-label>{{ preText }}</ion-label>
+                    <ion-label style="color: red;">{{ redText }}</ion-label>
+                    <ion-label>{{ postText }}</ion-label>
+                </ion-row>
+                <ion-label class="divider">|</ion-label>
+            </div>
+            
+            <div style="position: absolute; bottom: 0%; width: 95%;">
+                <ion-item>
+                    <ion-progress-bar [value]="progress"></ion-progress-bar>
+                </ion-item>
+            </div>
+    </ion-grid>
+</ion-content>

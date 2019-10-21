@@ -1,0 +1,32 @@
+select {
+    background-color: black;
+    position: absolute;
+    right: 0%;
+    margin: 10px;
+}
+
+ion-grid {
+    display: block;
+    height: 100%;
+    touch-action: none !important;
+}
+
+ion-progress-bar {
+    height: 3em;
+    --background: #3880ff;
+    --buffer-background: #242c3a;
+    --progress-background: red;
+}
+
+.divider {
+    color: red;
+    position: relative;
+    left: 50%;
+}
+
+.singleWord {
+    margin: auto;
+    margin-top: 40vh;
+    width: fit-content;
+    height: fit-content;
+}
