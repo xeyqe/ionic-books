@@ -8,7 +8,7 @@ import { Platform } from '@ionic/angular';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  private text: string[] = [];
+  private text = ['Just', 'give', 'me', 'some', 'text', 'looooonnddddddddddnnggg'];
   private word: string;
   private maxWordLength = 13;
 
@@ -16,6 +16,7 @@ export class HomePage {
   private redText = '';
   private postText = '';
   private progress = 0;
+
   private i = 0;
   private rangeEnd = 0;
   private isRunning = false;
@@ -27,19 +28,25 @@ export class HomePage {
 
   constructor(private int: WebIntent, private platform: Platform) {
     this.selected = 300;
+    this.getIntent();
     platform.ready().then(() => {
       this.platform.resume.subscribe(() => {
-        if (this.platform.is('android')) {
-          this.int.getIntent().then((intent) => {
-            if (intent.action === 'android.intent.action.SEND') {
-              const a = intent.extras['android.intent.extra.TEXT'];
-              this.text = a.split(/[\s\n]+/);
-              this.rangeEnd = this.text.length;
-            }
-          });
-        }
+        this.getIntent();
       });
    });
+  }
+
+  getIntent() {
+    if (this.platform.is('android')) {
+      this.int.getIntent().then((intent) => {
+        if (intent.action === 'android.intent.action.SEND') {
+          const a = intent.extras['android.intent.extra.TEXT'];
+          this.text = a.split(/[\s\n]+/);
+          this.rangeEnd = this.text.length;
+          this.i = 0;
+        }
+      });
+    }
   }
 
   pause() {
@@ -76,30 +83,32 @@ export class HomePage {
 
   printWord(word: string) {
     word = word.trim();
-    let middle = 0;
 
     if (word.length === 1) {
       this.preText = '';
+      this.redText = word[0];
       this.postText = '';
-      this.redText = word[0];
-    } else if (word.length === 2) {
-      this.preText = '';
-      this.redText = word[0];
-      this.postText = word[1];
+    } else if (word.length < 6) {
+      this.preText = word[0];
+      this.redText = word[1];
+      this.postText = word.substring(2);
+    } else if (word.length < 10) {
+      this.preText = word.substring(0, 2);
+      this.redText = word[2];
+      this.postText = word.substring(3);
     } else {
-      middle = Math.floor(word.length / 2);
-      this.preText = word.substring(0, middle);
-      this.redText = word[middle];
-      this.postText = word.substring(middle + 1);
+      this.preText = word.substring(0, 3);
+      this.redText = word[3];
+      this.postText = word.substring(4);
     }
   }
 
   increaseFontSize() {
     let str = this.fontSize;
     str = str.substring(0, str.length - 2);
-    let num = parseInt(str, 10);
+    let num = parseFloat(str);
     if (num < 32) {
-      num += 1;
+      num += 0.1;
     }
     this.fontSize =  num + 'px';
   }
@@ -107,9 +116,9 @@ export class HomePage {
   decreaseFontSize() {
     let str = this.fontSize;
     str = str.substring(0, str.length - 2);
-    let num = parseInt(str, 10);
+    let num = parseFloat(str);
     if (num > 10) {
-      num -= 1;
+      num -= 0.1;
     }
     this.fontSize =  num + 'px';
   }
@@ -129,6 +138,7 @@ export class HomePage {
       this.i += num;
     }
     this.updateTime();
+    this.printWord(this.text[this.i]);
     this.progress = (this.i + 1) / this.text.length;
   }
 
@@ -138,6 +148,7 @@ export class HomePage {
       this.i -= num;
     }
     this.updateTime();
+    this.printWord(this.text[this.i]);
     this.progress = (this.i + 1) / this.text.length;
   }
 

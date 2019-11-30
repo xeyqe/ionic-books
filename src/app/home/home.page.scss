@@ -24,9 +24,30 @@ ion-progress-bar {
     left: 50%;
 }
 
+ion-label {
+    overflow: hidden;
+}
+
 .singleWord {
-    margin: auto;
     margin-top: 40vh;
     width: fit-content;
     height: fit-content;
+}
+
+.progressBar {
+    position: absolute;
+    bottom: 0%;
+    width: 95%;
+}
+
+.colOne {
+    padding: 0;
+    width: 10vw;
+    float: right;
+    margin-top: 40vh;
+}
+
+.colTwo {
+    padding: 0;
+    width: 90vw;
 }

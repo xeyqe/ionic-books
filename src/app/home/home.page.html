@@ -26,20 +26,32 @@
             <option value=950>950wpm</option>
           </select>       
   
-            <div class="singleWord" [style.fontSize]="fontSize">
-                <ion-label  class="divider">|</ion-label>
-                <ion-row>
-                    <ion-label>{{ preText }}</ion-label>
-                    <ion-label style="color: red;">{{ redText }}</ion-label>
-                    <ion-label>{{ postText }}</ion-label>
+        <ion-row>
+            <ion-col class="colOne" size="2">
+                <ion-row style="float: right">
+                    <ion-label [style.fontSize]="fontSize">{{ preText }}</ion-label>
                 </ion-row>
-                <ion-label class="divider">|</ion-label>
-            </div>
+            </ion-col>
+            <ion-col class="colTwo" size="6">
+                <div class="singleWord" [style.fontSize]="fontSize">
+                    <ion-row>
+                        <ion-label>
+                        
+                        <ion-label style="color: red;">{{ redText }}</ion-label>
+                        <ion-label>{{ postText }}</ion-label>
+                    </ion-label>
+                    </ion-row>
+                    <ion-row style="float: left;">
+                        <ion-label class="divider" style="float: left">|</ion-label>
+                    </ion-row>
+                </div>
+            </ion-col>
+        </ion-row>
             
-            <div style="position: absolute; bottom: 0%; width: 95%;">
-                <ion-item>
-                    <ion-progress-bar [value]="progress"></ion-progress-bar>
-                </ion-item>
-            </div>
+        <div class="progressBar">
+            <ion-item>
+                <ion-progress-bar [value]="progress"></ion-progress-bar>
+            </ion-item>
+        </div>
     </ion-grid>
 </ion-content>
